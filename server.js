@@ -117,18 +117,6 @@ app.get("/alunos", (req, res) => {
     res.json(alunos)
 })
 
-app.get("/alunos/:id", (req, res) => {
-    const aluno = alunos.find(a => a.id === parseInt(req.params.id))
-    if (!aluno) {
-        return res.status(404).json({message: "Aluno não encontrado!"})
-    }
-    res.json(aluno)
-})
-
-function calcularMedia(n1, n2) {
-    return parseFloat(((n1 + n2) / 2).toFixed(2))
-}
-
 app.get("/alunos/medias", (req, res) => {
     const medias = alunos.map(a => ({
         nome: a.nome,
@@ -144,6 +132,18 @@ app.get("/alunos/aprovados", (req, res) => {
     }))
     res.json(aprovacao)
 })
+
+app.get("/alunos/:id", (req, res) => {
+    const aluno = alunos.find(a => a.id === parseInt(req.params.id))
+    if (!aluno) {
+        return res.status(404).json({message: "Aluno não encontrado!"})
+    }
+    res.json(aluno)
+})
+
+function calcularMedia(n1, n2) {
+    return parseFloat(((n1 + n2) / 2).toFixed(2))
+}
 
 app.post("/alunos", (req, res) => {
     const { id, nome, ra, nota1, nota2 } = req.body;
